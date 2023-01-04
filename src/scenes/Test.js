@@ -1,7 +1,7 @@
 import { Scene } from 'phaser';
 
 class Test extends Scene {
-  constructor() {
+  constructor(data) {
     super('Test');
   }
 

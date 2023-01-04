@@ -1,5 +1,6 @@
 import * as Phaser from 'phaser';
 import Test from './scenes/Test';
+import Preloader from './scenes/Preloader';
 
 const config = {
   type: Phaser.AUTO,
@@ -11,7 +12,7 @@ const config = {
     width: innerWidth,
     height: innerHeight,
   },
-  scene: [Test],
+  scene: [Preloader, Test],
   physics: {
     default: 'arcade',
     arcade: {
