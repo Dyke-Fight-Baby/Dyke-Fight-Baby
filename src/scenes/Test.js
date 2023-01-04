@@ -7,6 +7,9 @@ class Test extends Scene {
 
   preload() {
     this.load.image('shiny_stars', '/assets/backgrounds/shiny_stars.png');
+
+    this.load.image('lorn', '/assets/chars/lorn/lorn-test.png');
+    this.load.image('jags', '/assets/gamedevs/chars/jags/jags-test.png');
   }
 
   create() {
@@ -20,6 +23,10 @@ class Test extends Scene {
     this.background = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
+
+    let lornTest = this.add.sprite(100, 100, 'lorn').setScale(3.5);
+    let jagsTest = this.add.sprite(100, 100, 'jags').setScale(3.5);
+    jagsTest.flipX = true;
   }
   update() {}
 }
