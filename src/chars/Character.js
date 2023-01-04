@@ -11,7 +11,7 @@ export class Character extends Phaser.GameObjects.Sprite {
   }
 
   init() {
-    this.character = true;
+    this.is_character = true;
     this.hp = 10;
   }
 }

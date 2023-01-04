@@ -5,7 +5,18 @@ export class Jags extends Character {
   constructor(scene, x, y) {
     super(scene, x, y, 'jags');
 
+    // Making the homie
+    this.scene.add.existing(this);
+    this.scene.physics.add.existing(this);
+
+    // Player Config
+    this.setScale(x / 250);
+    this.body.setGravityY(450);
+    this.body.setCollideWorldBounds(true);
+
+    //Method calls for creation
     this.init();
+    this.create();
   }
 
   init() {
@@ -57,7 +68,7 @@ export class Jags extends Character {
     }
 
     // Fast-falling
-    if (this.cursors.keyobj_s.isDown && this.body.blocked.down) {
+    if (this.cursors.keyobj_s.isDown && !this.body.blocked.down) {
       this.body.setVelocityY(400);
     }
   }

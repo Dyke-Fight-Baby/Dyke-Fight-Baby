@@ -24,7 +24,7 @@ export default class PreloaderScene extends Phaser.Scene {
     // this.load.image('lorn', '/assets/chars/lorn/lorn-test.png');
 
     // Jags Assets
-    // this.load.image('jags', '/assets/gamedevs/chars/jags/jags-test.png');
+    // this.load.image('jags', '/assets/chars/jags/jags-test.png');
   }
 
   create() {
