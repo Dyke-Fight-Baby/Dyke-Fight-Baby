@@ -24,6 +24,7 @@ io.on('connection', function (socket) {
     y: Math.floor(Math.random() * 500) + 50,
     playerId: socket.id,
   };
+  console.log('HERE IS PLAYERS', players);
   // Send the playes obj to the new player
   socket.emit('currentPlayers', players);
   // Update all other players of the new player
@@ -34,7 +35,7 @@ io.on('connection', function (socket) {
     console.log('user disconnected: ', socket.id);
     delete players[socket.id];
     // emit a message to all players to remove this player
-    io.emit('disconnect', socket.id);
+    socket.emit('user has left', socket.id);
   });
 
   // when player moves, update the player data
