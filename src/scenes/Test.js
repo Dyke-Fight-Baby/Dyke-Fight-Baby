@@ -19,6 +19,8 @@ class Test extends Scene {
   }
 
   create() {
+    this.socket = io();
+
     this.scale.displaySize.setAspectRatio(16 / 9);
     this.scale.refresh();
 

@@ -6,7 +6,46 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 
 // Create instance of an express app
+
+const { createServer } = require('http');
+const { Server } = require('socket.io');
+
 const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer);
+
+const players = {};
+
+io.on('connection', function (socket) {
+  console.log('a user connected: ', socket.id);
+  players[socket.id] = {
+    flipX: false,
+    x: Math.floor(Math.random() * 400) + 50,
+    y: Math.floor(Math.random() * 500) + 50,
+    playerId: socket.id,
+  };
+  // Send the playes obj to the new player
+  socket.emit('currentPlayers', players);
+  // Update all other players of the new player
+  socket.broadcast.emit('newPlayer', players[socket.id]);
+
+  // When player disconnects, remove them from our players obj
+  socket.on('disconnect', function () {
+    console.log('user disconnected: ', socket.id);
+    delete players[socket.id];
+    // emit a message to all players to remove this player
+    io.emit('disconnect', socket.id);
+  });
+
+  // when player moves, update the player data
+  socket.on('playerMovement', function (movementData) {
+    players[socket.id].x = movementData.x;
+    players[socket.id].y = movementData.y;
+    players[socket.id].flipX = movementData.flipX;
+    // emit message to all players about the player that moved
+    socket.broadcast.emit('playerMoved', players[socket.id]);
+  });
+});
 
 //body parsing middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -41,7 +80,7 @@ const init = async () => {
       await db.sync();
       console.log('db synced!');
     }
-    app.listen(PORT, () =>
+    httpServer.listen(PORT, () =>
       console.log(`Listening on port ${PORT}, join the DYKES!`)
     );
   } catch (error) {
