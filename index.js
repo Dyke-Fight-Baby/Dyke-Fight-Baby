@@ -40,6 +40,7 @@ io.on('connection', function (socket) {
 
   // when player moves, update the player data
   socket.on('playerMovement', function (movementData) {
+    console.log(`player ${socket.id} moved:`);
     players[socket.id].x = movementData.x;
     players[socket.id].y = movementData.y;
     players[socket.id].flipX = movementData.flipX;
@@ -90,3 +91,7 @@ const init = async () => {
 };
 
 init();
+
+// module.exports = {
+//   io,
+// };

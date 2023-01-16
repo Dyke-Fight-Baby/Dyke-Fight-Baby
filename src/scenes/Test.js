@@ -2,6 +2,8 @@ import { Scene } from 'phaser';
 import { Lorn } from '../chars/Lorn';
 import { Jags } from '../chars/Jags';
 
+// import { io } from '../../index';
+
 class Test extends Scene {
   players = [];
   playerOne;
