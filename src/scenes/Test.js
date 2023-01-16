@@ -2,8 +2,10 @@ import { Scene } from 'phaser';
 import { Lorn } from '../chars/Lorn';
 import { Jags } from '../chars/Jags';
 
+// import { io } from '../../index';
+
 class Test extends Scene {
-  chars = [];
+  players = [];
   playerOne;
   playerTwo;
   x = innerWidth / 2;
@@ -49,15 +51,15 @@ class Test extends Scene {
     this.socket.on('currentPlayers', function (players) {
       Object.keys(players).forEach(function (id) {
         if (players[id].playerId === this.socket.id) {
-          addPlayer(this, players[id]);
+          this.addPlayer(this, players[id]);
         } else {
-          addOtherPlayer(this, players[id]);
+          this.addOtherPlayers(this, players[id]);
         }
       });
     });
 
     this.socket.on('newPlayer', function (playerInfo) {
-      addOtherPlayers(this, players[id]);
+      this.addOtherPlayers(this, players[id]);
     });
 
     // // Collision
@@ -68,7 +70,7 @@ class Test extends Scene {
     this.playerOne = new Lorn(this, playerInfo.x, playerInfo.y);
   }
 
-  addOtherPlayer(playerInfo) {
+  addOtherPlayers(playerInfo) {
     this.playerTwo = new Jags(this, playerInfo.x, playerInfo.y);
     this.otherPlayers.add(this.playerTwo);
   }
